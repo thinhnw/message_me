@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@doabit/semantic-ui-sass": "^2.4.5",
+    "jquery": "^3.7.1",
+    "popper.js": "^1.16.1"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds",
+    "build:watch": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds --watch"
+  }
+
+}

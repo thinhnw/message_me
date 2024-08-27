@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= content_for(:title) || "Message Me" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title><%= content_for(:title) || "Message Me" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= yield :head %>
+  <%= yield :head %>
 
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.png">
+  <%= javascript_importmap_tags %>
+  <!-- Include Semantic UI CSS -->
+  <link href=" https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css " rel="stylesheet">
 
-  <body>
+  <!-- Include jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- Include Semantic UI JavaScript -->
+  <script src=" https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js "></script>
+
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+  <div class="ui small inverted menu">
+    <div class="ui container">
+        <%= render 'layouts/navigation' %>
+    </div>
+  </div>
+  <div class="ui container">
     <%= yield %>
-  </body>
+  </div>
+</body>
 </html>
