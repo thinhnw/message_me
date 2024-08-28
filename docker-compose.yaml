@@ -1,0 +1,54 @@
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bundle exec puma -C config/puma.rb
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle # Cache for gems
+      - node_modules:/app/node_modules # Cache for node_modules
+    environment:
+      RAILS_ENV: development
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.myapp.rule=Host(`message.thinhnw.site`)"  # Replace with your domain
+      - "traefik.http.routers.myapp.entrypoints=websecure"
+      - "traefik.http.routers.myapp.tls=true"
+      - "traefik.http.routers.myapp.tls.certresolver=myresolver"
+      - "traefik.http.services.web.loadbalancer.server.port=3000"
+      # - "traefik.http.services.web.loadbalancer.server.scheme=https"
+    networks:
+      - app-network
+
+  traefik:
+    image: traefik:v3.1
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=nvt0412@gmail.com"  # Replace with your email
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--log.level=DEBUG"  # Set log level to DEBUG for more detailed logs
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Traefik dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./letsencrypt:/letsencrypt  # Persistent storage for certificates
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  bundle_cache:
+  node_modules:
