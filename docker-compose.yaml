@@ -44,6 +44,16 @@ services:
       - ./letsencrypt:/letsencrypt  # Persistent storage for certificates
     networks:
       - app-network
+    
+  tinycp:
+    image: httpd:alpine
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tinycp.rule=Host(`tinycp.thinhnw.site`)"
+      - "traefik.http.routers.tinycp.entrypoints=websecure"
+      - "traefik.http.routers.tinycp.tls.certresolver=myresolver"
+      - "traefik.http.services.tinycp.loadbalancer.server.port=55555"
+      - "traefik.http.services.tinycp.loadbalancer.server.url=http://62.72.31.129:55555"
 
 networks:
   app-network:
