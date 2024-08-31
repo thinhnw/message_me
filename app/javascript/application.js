@@ -2,10 +2,13 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "./channels/index"
+import { scrollBottom, submitMessage } from "./utilities";
 
 $(document).on('turbo:load', function() {
   $('.ui.dropdown').dropdown();
   $('.message .close').on('click', function() {
     $(this).closest('.message').transition('fade');
   });
+  scrollBottom();
+  submitMessage();
 });
