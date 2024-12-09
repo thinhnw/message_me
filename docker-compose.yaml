@@ -13,51 +13,18 @@ services:
       RAILS_ENV: development
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.myapp.rule=Host(`message.thinhnw.site`)"  # Replace with your domain
-      - "traefik.http.routers.myapp.entrypoints=websecure"
-      - "traefik.http.routers.myapp.tls=true"
-      - "traefik.http.routers.myapp.tls.certresolver=myresolver"
-      - "traefik.http.services.web.loadbalancer.server.port=3000"
-      # - "traefik.http.services.web.loadbalancer.server.scheme=https"
+      - "traefik.http.routers.message_me.rule=Host(`message.thinhnw.site`)"  # Replace with your domain
+      - "traefik.http.routers.message_me.entrypoints=websecure"
+      - "traefik.http.routers.message_me.tls=true"
+      - "traefik.http.routers.message_me.tls.certresolver=myresolver"
+      - "traefik.http.services.message_me.loadbalancer.server.port=3000"
+      - "traefik.docker.network=traefik_traefik"
     networks:
-      - app-network
-
-  traefik:
-    image: traefik:v3.1
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.email=nvt0412@gmail.com"  # Replace with your email
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--log.level=DEBUG"  # Set log level to DEBUG for more detailed logs
-    ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080"  # Traefik dashboard
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./letsencrypt:/letsencrypt  # Persistent storage for certificates
-    networks:
-      - app-network
-    
-  tinycp:
-    image: httpd:alpine
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.tinycp.rule=Host(`tinycp.thinhnw.site`)"
-      - "traefik.http.routers.tinycp.entrypoints=websecure"
-      - "traefik.http.routers.tinycp.tls.certresolver=myresolver"
-      - "traefik.http.services.tinycp.loadbalancer.server.port=55555"
-      - "traefik.http.services.tinycp.loadbalancer.server.url=http://62.72.31.129:55555"
+      - traefik_traefik
 
 networks:
-  app-network:
-    driver: bridge
+  traefik_traefik:
+    external: true
 
 volumes:
   bundle_cache:
