@@ -1,24 +1,5 @@
-# README
+# MessageMe
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+MessageMe is a chat room built with Ruby on Rails. This application allows users to create accounts, log in, and send messages in real-time.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Check out the [Demo](https://message.thinhnw.site) of the app.
