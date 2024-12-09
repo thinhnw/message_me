@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  get "users/new"
-  get "users/create"
+  resources :users, only: [ :new, :create ]
+  get "register", to: "users#new"
+  get "login", to: "sessions#new"
+  post "login", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
+  post "message", to: "messages#create"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -13,10 +17,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "chatroom#index"
-  get "login", to: "sessions#new"
-  post "login", to: "sessions#create"
-  delete "logout", to: "sessions#destroy"
-  post "message", to: "messages#create"
 
   mount ActionCable.server, at: "/cable"
 end
