@@ -1,13 +1,10 @@
 <h2 class="ui center aligned large header">
   Welcome to MessageMe - <em>a complete Chat App</em>
 </h2>
-
 <h4 class="ui center aligned medium icon header">
   <i class="circular orange power off tiny icon"></i>
   Log in to continue
 </h4>
-
-
 <div class="ui placeholder segment">
   <div class="ui two column very relaxed stackable grid">
     <div class="column">
@@ -30,10 +27,10 @@
       <% end %>
     </div>
     <div class="middle aligned column">
-      <div class="ui big orange disabled button">
+      <%= link_to register_path, class: "ui big orange button" do %>
         <i class="signup icon"></i>
         Sign Up
-      </div>
+      <% end %>
     </div>
   </div>
   <div class="ui vertical divider">

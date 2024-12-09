@@ -1,28 +1,49 @@
-<h1>Sign Up</h1>
-<%= form_with(model: @user, local: true) do |form| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<h2 class="ui center aligned large header">
+  Welcome to MessageMe - <em>a complete Chat App</em>
+</h2>
+<h4 class="ui center aligned medium icon header">
+  <i class="circular orange power off tiny icon"></i>
+  Create an account to begin
+</h4>
+<div class="ui placeholder segment">
+  <div class="ui two column very relaxed stackable grid">
+    <div class="column">
+      <%= form_with(model: @user, local: true) do |form| %>
+        <div class="field">
+          <%= form.label :username, "Username" %>
+          <span style="color: red;">*</span>
+          <div class="ui left icon input">
+            <%= form.text_field :username, placeholder: "Username" %>
+            <i class="user icon"></i>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :password, "Password" %>
+          <span style="color: red;">*</span>
+          <div class="ui left icon input">
+            <%= form.password_field :password, placeholder: "Password" %>
+            <i class="lock icon"></i>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :password_confirmation, "Confirm password" %>
+          <span style="color: red;">*</span>
+          <div class="ui left icon input">
+            <%= form.password_field :password, placeholder: "Password Confirmation" %>
+            <i class="lock icon"></i>
+          </div>
+        </div>
+        <%= form.button "Register", class: "ui orange submit button" %>
+      <% end %>
     </div>
-  <% end %>
-  <div>
-    <%= form.label :username %><br>
-    <%= form.text_field :username %>
+    <div class="middle aligned column">
+      <%= link_to login_path, class: 'ui big orange button' do %>
+        <i class="sign-in icon"></i>
+        Log in
+      <% end %>
+    </div>
   </div>
-  <div>
-    <%= form.label :password %><br>
-    <%= form.password_field :password %>
+  <div class="ui vertical divider">
+    Or
   </div>
-  <div>
-    <%= form.label :password_confirmation %><br>
-    <%= form.password_field :password_confirmation %>
-  </div>
-  <div>
-    <%= form.submit "Create Account" %>
-  </div>
-<% end %>
+</div>
